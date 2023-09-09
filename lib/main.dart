@@ -95,15 +95,17 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.teal,
                               margin: const EdgeInsets.all(10),
                               child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
                                     notes![index]!.title.toString(),
                                     style: const TextStyle(color: Colors.black),
                                   ),
-                                  // Text(
-                                  //   notes![index]!.description.toString(),
-                                  //   style: const TextStyle(color: Colors.black),
-                                  // ),
+                                  Text(
+                                    notes![index]!.description.toString(),
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
                                 ],
                               ),
                             ),

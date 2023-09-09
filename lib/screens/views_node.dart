@@ -13,7 +13,7 @@ class ViewNode extends StatefulWidget {
 
 class _ViewNodeState extends State<ViewNode> {
   bool isLoding = false;
-  late Note? notes;
+  Note? notes;
 
   Future refreshNotes() async {
     setState(() {
@@ -35,7 +35,9 @@ class _ViewNodeState extends State<ViewNode> {
         onPressed: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const AddUpdateNote(), //notes : notes
+              builder: (context) => const AddUpdateNote(
+             
+              ), //notes : notes
             ),
           );
           refreshNotes();
@@ -88,7 +90,9 @@ class _ViewNodeState extends State<ViewNode> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8.0,),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   Row(
                     children: [
                       editButton(),

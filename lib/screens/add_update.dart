@@ -27,11 +27,11 @@ class _AddUpdateNoteState extends State<AddUpdateNote> {
     title = texttitles.text;
     description = textdescriptions.text;
     final navigator = Navigator.of(context);
-    final node = widget.notes!.copy(
+    final node = widget.notes?.copy(
       title: title,
       description: description,
     );
-    await NoteDatabase.instance.updateNote(node);
+    await NoteDatabase.instance.updateNote(node!);
     navigator.pop();
   }
 

@@ -4,10 +4,10 @@ import 'package:database/db.dart/notes_database.dart';
 
 class AddUpdateNote extends StatefulWidget {
   final Note? notes;
-  const AddUpdateNote({super.key, this.notes});
+  const AddUpdateNote({Key? key, this.notes}) :super(key: key);
 
   @override
-  State<AddUpdateNote> createState() => _AddUpdateNoteState();
+  State<AddUpdateNote> createState() => _AddUpdateNoteState(); 
 }
 
 class _AddUpdateNoteState extends State<AddUpdateNote> {

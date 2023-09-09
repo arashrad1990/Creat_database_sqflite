@@ -5,7 +5,7 @@ import 'package:database/db.dart/notes_database.dart';
 
 class ViewNode extends StatefulWidget {
   final int? nodeid;
-  const ViewNode({super.key, required this.nodeid});
+  const ViewNode({Key? key, required this.nodeid}) : super(key: key);
 
   @override
   State<ViewNode> createState() => _ViewNodeState();
@@ -13,7 +13,7 @@ class ViewNode extends StatefulWidget {
 
 class _ViewNodeState extends State<ViewNode> {
   bool isLoding = false;
-   Note? notes;
+  late Note? notes;
 
   Future refreshNotes() async {
     setState(() {
@@ -24,17 +24,18 @@ class _ViewNodeState extends State<ViewNode> {
       });
     });
   }
+
   @override
   void initState() {
-
     refreshNotes();
     super.initState();
   }
+
   Widget editButton() => IconButton(
         onPressed: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const AddUpdateNote(),
+              builder: (context) => const AddUpdateNote(), //notes : notes
             ),
           );
           refreshNotes();
@@ -51,7 +52,6 @@ class _ViewNodeState extends State<ViewNode> {
         icon: const Icon(Icons.delete),
       );
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,8 +67,28 @@ class _ViewNodeState extends State<ViewNode> {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 children: [
-                  Text(NoteFields.id.toString()),
-                  Text(NoteFields.description.toString()),
+                  Card(
+                    child: ListTile(
+                      tileColor: Colors.grey,
+                      title: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Text(
+                          notes!.title.toString(),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 22),
+                        ),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: Text(
+                          notes!.description.toString(),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0,),
                   Row(
                     children: [
                       editButton(),

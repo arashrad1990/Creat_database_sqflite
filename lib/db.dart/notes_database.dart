@@ -42,10 +42,12 @@ CREATE TABLE $tableNotes(
 
   Future<Note> readNote(int? id) async {
     final db = await instance.database;
-    final maps = await db.query(tableNotes,
-        columns: NoteFields.values,
-        where: '${NoteFields.id} = ?',
-        whereArgs: [id]);
+    final maps = await db.query(
+      tableNotes,
+      columns: NoteFields.values,
+      where: '${NoteFields.id} = ?',
+      whereArgs: [id],
+    );
     if (maps.isEmpty) {
       return Note.fromJson(maps.first);
     } else {
@@ -61,14 +63,21 @@ CREATE TABLE $tableNotes(
 
   Future<int> updateNote(Note note) async {
     final db = await instance.database;
-    return db.update(tableNotes, note.toJson(),
-        where: '${NoteFields.id} = ?', whereArgs: [note.id]);
+    return db.update(
+      tableNotes,
+      note.toJson(),
+      where: '${NoteFields.id} = ?',
+      whereArgs: [note.id],
+    );
   }
 
   Future<int> deleteNote(int? id) async {
     final db = await instance.database;
-    return await db
-        .delete(tableNotes, where: '${NoteFields.id} = ?', whereArgs: [id]);
+    return await db.delete(
+      tableNotes,
+      where: '${NoteFields.id} = ?',
+      whereArgs: [id],
+    );
   }
 
   Future close() async {

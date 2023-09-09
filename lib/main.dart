@@ -1,5 +1,3 @@
-
-
 import 'package:database/screens/add_update.dart';
 import 'package:flutter/material.dart';
 import 'db.dart/notes_database.dart';
@@ -11,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
+  databaseFactory = databaseFactoryFfi; //baraye run shodan
   runApp(const MyApp());
 }
 
@@ -67,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: FutureBuilder(
         future: NoteDatabase.instance.readAllNotes(),
-        builder: (context, snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -77,21 +75,24 @@ class _MyHomePageState extends State<MyHomePage> {
               ? const CircularProgressIndicator()
               : notes!.isEmpty
                   ? const Center(
-                      child: Text("No Data"),
+                      child: Text("Click \u{2795} to add notes"),
                     )
                   : ListView.builder(
                       itemCount: notes?.length,
-                      itemBuilder: (context, index) {
+                      itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () async {
-                            await Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  ViewNode(nodeid: notes![index]!.id),
-                            ));
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ViewNode(
+                                  nodeid: notes![index]!.id,
+                                ),
+                              ),
+                            );
                           },
                           child: SingleChildScrollView(
                             child: Card(
-                              color: Colors.amber,
+                              color: Colors.teal,
                               margin: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
@@ -99,10 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     notes![index]!.title.toString(),
                                     style: const TextStyle(color: Colors.black),
                                   ),
-                                  Text(
-                                    notes![index]!.description.toString(),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
+                                  // Text(
+                                  //   notes![index]!.description.toString(),
+                                  //   style: const TextStyle(color: Colors.black),
+                                  // ),
                                 ],
                               ),
                             ),
